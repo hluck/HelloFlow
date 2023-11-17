@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "HelloFlow"
 include(":app")
- 
+
+include(":part2")
