@@ -45,10 +45,9 @@ fun main() {
         }.collect{
 //            println(it)
         }
-
         println()
 
-        //debounce
+        //todo debounce
         flow{
             emit(1)
             emit(2)
@@ -64,8 +63,7 @@ fun main() {
                 println(it) //2,5   todo 5由于是最后一条数据,因此可以发送成功
             }
 
-        //samp  le 可以从flow的数据流当中按照一定的时间间隔来采样某一条数据。
-
+        //todo sample 可以从flow的数据流当中按照一定的时间间隔来采样某一条数据。
         flow{
 //            while (true){
                 emit("发送一条弹幕")
@@ -77,7 +75,7 @@ fun main() {
                 println(it)
             }
 
-        //reduce
+        //todo reduce
         val result = flow{
             for (i in 0 .. 100){
                 emit(i)
@@ -87,7 +85,7 @@ fun main() {
         }
         println(result)//5050
 
-        //fold
+        //todo fold
         val result2 = flow {
             for (i in 1..100){
                 emit(i)
@@ -107,7 +105,7 @@ fun main() {
         println(result3)
         println()
 
-        //flatMap 将两个flow中的数据进行映射、合并、压平成一个flow，最后再进行输出
+        //todo flatMap 将两个flow中的数据进行映射、合并、压平成一个flow，最后再进行输出
         flowOf(1,2,3)
             .flatMapConcat {
                 flowOf("a$it", "b$it", "c$it", "d$it")
@@ -116,7 +114,7 @@ fun main() {
             }
 
         println()
-        //用flatMapConcat函数将sendGetTokenRequest和sendGetUserInfoRequest串连成一条链式执行的任务
+        //todo 用flatMapConcat函数将sendGetTokenRequest和sendGetUserInfoRequest串连成一条链式执行的任务
         sendGetTokenRequest()
             .flatMapConcat { token ->
                 sendGetUserInfoRequest(token)
@@ -138,7 +136,7 @@ fun main() {
             }
         println()
 
-        //flatMapMerge
+        //todo flatMapMerge
         //可以并发着去处理数据的，而并不保证顺序。那么哪条数据被delay的时间更短，它就可以更优先地得到处理。
         flowOf(300,200,100)
             .flatMapMerge {
@@ -152,7 +150,7 @@ fun main() {
             }
         println()
 
-        //flatMapLatest 和其他两个 flatMap 函数都是类似的，也是把两个 flow 合并、压平成一个 flow。
+        //todo flatMapLatest 和其他两个 flatMap 函数都是类似的，也是把两个 flow 合并、压平成一个 flow。
         //如果有新数据到来了而前一个数据还没有处理完，则会将前一个数据剩余的处理逻辑全部取消。
         //flow1 中的数据传递到 flow2 中会立刻进行处理，但如果 flow1 中的下一个数据要发送了，
         //    而 flow2 中上一个数据还没处理完，则会直接将剩余逻辑取消掉，开始处理最新的数据。
@@ -173,7 +171,7 @@ fun main() {
         println()
 
         //zip
-        //使用 zip 连接的两个 flow，它们之间是并行的运行关系。
+        //todo 使用 zip 连接的两个 flow，它们之间是并行的运行关系。
         // 这点和 flatMap 差别很大，因为 flatMap 的运行方式是一个 flow 中的数据流向另外一个 flow，是串行的关系。
         val flow1 = flowOf("a","b","c")
         val flow2 = flowOf(1,2,3,4,5)
@@ -216,7 +214,7 @@ fun main() {
         println()
 
 
-        //buffer 解决 Flow 流速不均匀的问题(Flow 上游发送数据的速度和 Flow 下游处理数据的速度不匹配)
+        //todo buffer 解决 Flow 流速不均匀的问题(Flow 上游发送数据的速度和 Flow 下游处理数据的速度不匹配)
         //buffer 函数和 collectLatest 函数，以及 conflate 函数处理的问题都是类似的，那就是解决 Flow 流速不均匀的问题。
         flow {
             emit(1)
@@ -234,7 +232,7 @@ fun main() {
         println()
 
 
-        //conflate 在某些场景下，我们可能并不需要保留所有的数据。
+        //todo conflate 在某些场景下，我们可能并不需要保留所有的数据。
         //如果使用 buffer 函数来提升运行效率就完全不合理，它会缓存太多完全没有必要保留的数据
         //它的特性是，只接收处理最新的数据，如果有新数据到来了而前一个数据还没有处理完，则会将前一个数据剩余的处理逻辑全部取消。
         flow {

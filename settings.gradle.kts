@@ -17,3 +17,4 @@ rootProject.name = "HelloFlow"
 include(":app")
 
 include(":part2")
+include(":part3")
